@@ -1,16 +1,23 @@
-# plugin-{your-plugin-name}
+# plugin-keycloak-auth
 
-[![NPM Downloads](https://img.shields.io/npm/dt/plugin-{your-plugin-name})](https://www.npmjs.com/package/plugin-{your-plugin-name})
+[![NPM Downloads](https://img.shields.io/npm/dt/plugin-keycloak-auth)](https://www.npmjs.com/package/plugin-keycloak-auth)
 
-A short description of the plugin and its actions.
+Enable Keycloak authentication on a service
 
 ## Purpose
 
-What is the purpose of this plugin and what exactly does it do.
+This plugin adds the required code to use Passport Keycloak strategy on the generated NestJS application
 
 ## Configuration
 
-If a configuration is required, add it here.
+"settings": {
+  "host": "",
+  "realm": "",
+  "clientID": "",
+  "clientSecret": "",
+  "callbackURL": ""
+  // ...
+},
 
 ## Scripts
 
