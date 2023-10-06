@@ -8,16 +8,14 @@ import { Strategy } from "passport-keycloak-oauth2-oidc";
 declare class ENTITY_NAME_INFO {}
 declare class ENTITY_SERVICE {}
 
-
 export interface IKcOpts {
-  authServerURL: string,
-  clientID: string,
-  realm: string,
-  publicClient: string,
-  clientSecret: string,
-  sslRequired: string,
-  callbackURL: string
-
+  authServerURL: string;
+  clientID: string;
+  realm: string;
+  publicClient: string;
+  clientSecret: string;
+  sslRequired: string;
+  callbackURL: string;
 }
 
 /*
@@ -47,22 +45,29 @@ passport.use(
 );
 */
 
-
-
-
 export class KeycloakStrategyBase
   extends PassportStrategy(Strategy)
   implements IAuthStrategy
 {
   constructor(protected readonly opts: IKcOpts) {
     super({
-      authServerURL: opts.authServerURL? opts.authServerURL : process.env.authServerURL,
+      authServerURL: opts.authServerURL
+        ? opts.authServerURL
+        : process.env.authServerURL,
       clientID: opts.clientID ? opts.clientID : process.env.clientID,
       realm: opts.realm ? opts.realm : process.env.realm,
-      publicClient: opts.publicClient ? opts.publicClient : process.env.publicClient,
-      clientSecret: opts.clientSecret ? opts.clientSecret : process.env.clientSecret,
-      sslRequired: opts.sslRequired ? opts.sslRequired : process.env.sslRequired,
-      callbackURL: opts.callbackURL ? opts.callbackURL : process.env.callbackURL
+      publicClient: opts.publicClient
+        ? opts.publicClient
+        : process.env.publicClient,
+      clientSecret: opts.clientSecret
+        ? opts.clientSecret
+        : process.env.clientSecret,
+      sslRequired: opts.sslRequired
+        ? opts.sslRequired
+        : process.env.sslRequired,
+      callbackURL: opts.callbackURL
+        ? opts.callbackURL
+        : process.env.callbackURL,
     });
   }
 
@@ -83,6 +88,4 @@ export class KeycloakStrategyBase
     }
     return { ...user, roles: user.roles as string[] };
   }
-
-  
 }

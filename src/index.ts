@@ -310,10 +310,7 @@ class KeycloakAuthPlugin implements AmplicationPlugin {
       realm,
       clientID,
       clientSecret,
-      callbackURL,
-      password,
-      port,
-      user,
+      callbackURL
     } = getPluginSettings(context.pluginInstallations);
 
     eventParams.envVariables = [
@@ -324,9 +321,6 @@ class KeycloakAuthPlugin implements AmplicationPlugin {
         { KC_CLIENT_ID: clientID },
         { KC_CLIENT_SECRET: clientSecret },
         { KC_CALLBACK_URL: callbackURL },
-        { KC_ADMIN_PASSWORD: password },
-        { KC_ADMIN_USER: user },
-        { KC_PORT: port.toString() },
 
         // { DB_USER: user },
         // { DB_PASSWORD: password },
