@@ -23,9 +23,10 @@ import {
 import { builders, namedTypes } from "ast-types";
 import { print } from "@amplication/code-gen-utils";
 
-
-const keycloakStrategyPath = join(templatesPath, "keycloak.strategy.template.ts");
-
+const keycloakStrategyPath = join(
+  templatesPath,
+  "keycloak.strategy.template.ts"
+);
 
 export async function createKeycloakStrategy(
   dsgContext: DsgContext
@@ -106,31 +107,3 @@ async function mapKeycloakStrategyTemplate(
     return { code: "", path: "" };
   }
 }
-
-
-/*
-// Register the strategy with passport
-passport.use(
-  "keycloak",
-  new KeycloakStrategy(
-    {
-      host: process.env.KEYCLOAK_HOST,
-      realm: process.env.KEYCLOAK_REALM,
-      clientID: process.env.KEYCLOAK_CLIENT_ID,
-      clientSecret: process.env.KEYCLOAK_CLIENT_SECRET,
-      callbackURL: `/api${AUTH_KEYCLOAK_CALLBACK}`
-    },
-    (accessToken, refreshToken, profile, done) => {
-      // This is called after a successful authentication has been completed
-      // Here's a sample of what you can then do, i.e., write the user to your DB
-      User.findOrCreate({ email: profile.email }, (err, user) => {
-        assert.ifError(err);
-        user.keycloakId = profile.keycloakId;
-        user.imageUrl = profile.avatar;
-        user.name = profile.name;
-        user.save((err, savedUser) => done(err, savedUser));
-      });
-    }
-  )
-);
-*/

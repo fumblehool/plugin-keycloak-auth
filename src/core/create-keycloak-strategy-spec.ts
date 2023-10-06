@@ -1,8 +1,3 @@
-/**
- * TODO:::
- * Fix this::
- * adding the file as place-holder
- */
 import { Module, DsgContext } from "@amplication/code-gen-types";
 import { join } from "path";
 import {
@@ -20,9 +15,9 @@ import {
 import { builders, namedTypes } from "ast-types";
 import { print } from "@amplication/code-gen-utils";
 
-const jwtStrategySpecPath = join(
+const keycloakStrategySpecPath = join(
   templatesPath,
-  "jwt.strategy.template.spec.ts"
+  "keycloak.strategy.template.spec.ts"
 );
 
 export async function createKeycloakStrategySpec(
@@ -30,8 +25,8 @@ export async function createKeycloakStrategySpec(
 ): Promise<Module> {
   return await mapKeycloakStrategySpecTemplate(
     dsgContext,
-    jwtStrategySpecPath,
-    "jwt.strategy.spec.ts"
+    keycloakStrategySpecPath,
+    "keycloak.strategy.spec.ts"
   );
 }
 
@@ -72,7 +67,7 @@ async function mapKeycloakStrategySpecTemplate(
       ENTITY_SERVICE: builders.identifier(`${entityServiceName}`),
     };
 
-    const filePath = `${serverDirectories.srcDirectory}/tests/auth/jwt/${fileName}`;
+    const filePath = `${serverDirectories.srcDirectory}/tests/auth/keycloak/${fileName}`;
 
     interpolate(template, templateMapping);
 

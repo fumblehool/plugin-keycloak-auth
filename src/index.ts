@@ -21,7 +21,17 @@ import {
   createKeycloakStrategyBase,
   createKeycloakStrategySpec,
 } from "./core";
-import { addIdentifierToConstructorSuperCall, addImports, addInjectableDependency, awaitExpression, getClassDeclarationById, importNames, interpolate, logicalExpression, memberExpression } from "./util/ast";
+import {
+  addIdentifierToConstructorSuperCall,
+  addImports,
+  addInjectableDependency,
+  awaitExpression,
+  getClassDeclarationById,
+  importNames,
+  interpolate,
+  logicalExpression,
+  memberExpression,
+} from "./util/ast";
 import { builders, namedTypes } from "ast-types";
 import { relativeImportPath } from "./util/module";
 import { isPasswordField } from "./util/field";
@@ -36,9 +46,10 @@ const TRANSFORM_STRING_FIELD_UPDATE_INPUT_ID = builders.identifier(
   "transformStringFieldUpdateInput"
 );
 
-import { updateDockerComposeDevProperties, updateDockerComposeProperties } from "./constants";
-
-
+import {
+  updateDockerComposeDevProperties,
+  updateDockerComposeProperties,
+} from "./constants";
 
 class KeycloakAuthPlugin implements AmplicationPlugin {
   register(): Events {
@@ -123,7 +134,6 @@ class KeycloakAuthPlugin implements AmplicationPlugin {
     context: DsgContext,
     eventParams: CreateEntityServiceParams
   ) {
-
     /*  
       TODO:
       Re-check and fix the function code.
@@ -291,57 +301,61 @@ class KeycloakAuthPlugin implements AmplicationPlugin {
     ]);
   }
 
-beforeCreateServerDotEnv(
-  context: DsgContext,
-  eventParams: CreateServerDotEnvParams
-) {
-  const { host, realm, clientID, clientSecret, callbackURL, password, port, user } = getPluginSettings(
-    context.pluginInstallations
-  );
+  beforeCreateServerDotEnv(
+    context: DsgContext,
+    eventParams: CreateServerDotEnvParams
+  ) {
+    const {
+      host,
+      realm,
+      clientID,
+      clientSecret,
+      callbackURL,
+      password,
+      port,
+      user,
+    } = getPluginSettings(context.pluginInstallations);
 
-  eventParams.envVariables = [
-    ...eventParams.envVariables,
-    ...[
-      { KC_HOST: host },
-      { KC_REALM: realm },
-      { KC_CLIENT_ID: clientID },
-      { KC_CLIENT_SECRET: clientSecret },
-      { KC_CALLBACK_URL: callbackURL },
-      { KC_ADMIN_PASSWORD: password },
-      { KC_ADMIN_USER: user },
-      { KC_PORT: port.toString() },
-      
+    eventParams.envVariables = [
+      ...eventParams.envVariables,
+      ...[
+        { KC_HOST: host },
+        { KC_REALM: realm },
+        { KC_CLIENT_ID: clientID },
+        { KC_CLIENT_SECRET: clientSecret },
+        { KC_CALLBACK_URL: callbackURL },
+        { KC_ADMIN_PASSWORD: password },
+        { KC_ADMIN_USER: user },
+        { KC_PORT: port.toString() },
 
-      // { DB_USER: user },
-      // { DB_PASSWORD: password },
-      // { DB_PORT: port.toString() },
-      // { DB_NAME: dbName },
-      // {
-      //   DB_URL: `mysql://${user}:${password}@${host}:${port}/${dbName}`,
-      // },
-    ],
-  ];
+        // { DB_USER: user },
+        // { DB_PASSWORD: password },
+        // { DB_PORT: port.toString() },
+        // { DB_NAME: dbName },
+        // {
+        //   DB_URL: `mysql://${user}:${password}@${host}:${port}/${dbName}`,
+        // },
+      ],
+    ];
 
-  return eventParams;
-}
+    return eventParams;
+  }
 
+  beforeCreateServerDockerCompose(
+    context: DsgContext,
+    eventParams: CreateServerDockerComposeParams
+  ) {
+    eventParams.updateProperties.push(...updateDockerComposeProperties);
+    return eventParams;
+  }
 
-beforeCreateServerDockerCompose(
-  context: DsgContext,
-  eventParams: CreateServerDockerComposeParams
-) {
-  eventParams.updateProperties.push(...updateDockerComposeProperties);
-  return eventParams;
-}
-
-beforeCreateServerDockerComposeDev(
-  context: DsgContext,
-  eventParams: CreateServerDockerComposeDBParams
-) {
-  eventParams.updateProperties.push(...updateDockerComposeDevProperties);
-  return eventParams;
-}
-
+  beforeCreateServerDockerComposeDev(
+    context: DsgContext,
+    eventParams: CreateServerDockerComposeDBParams
+  ) {
+    eventParams.updateProperties.push(...updateDockerComposeDevProperties);
+    return eventParams;
+  }
 }
 
 export default KeycloakAuthPlugin;

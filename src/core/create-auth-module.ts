@@ -1,10 +1,3 @@
-/**
- * 
- * TODO:::
- * Fix this.
- * Adding this file as place-holder
- */
-
 import { Module, DsgContext } from "@amplication/code-gen-types";
 import { join } from "path";
 import {

@@ -1,9 +1,3 @@
-/**
- * TODO:::
- * fix this.
- * Adding this file as place-holder.
- */
-
 import { Module, DsgContext } from "@amplication/code-gen-types";
 import { join } from "path";
 import {
@@ -23,9 +17,9 @@ import {
 import { builders, namedTypes } from "ast-types";
 import { print } from "@amplication/code-gen-utils";
 
-const jwtStrategyBasePath = join(
+const keycloakStrategyBasePath = join(
   templatesPath,
-  "jwt.strategy.template.base.ts"
+  "keycloak.strategy.template.base.ts"
 );
 
 export async function createKeycloakStrategyBase(
@@ -33,8 +27,8 @@ export async function createKeycloakStrategyBase(
 ): Promise<Module> {
   return await mapKeycloakStrategyTemplate(
     dsgContext,
-    jwtStrategyBasePath,
-    "jwt.strategy.base.ts"
+    keycloakStrategyBasePath,
+    "keycloak.strategy.base.ts"
   );
 }
 
@@ -84,7 +78,7 @@ async function mapKeycloakStrategyTemplate(
       ENTITY_SERVICE: builders.identifier(`${entityNameToLower}Service`),
     };
 
-    const filePath = `${serverDirectories.authDirectory}/jwt/base/${fileName}`;
+    const filePath = `${serverDirectories.authDirectory}/keycloak/base/${fileName}`;
 
     interpolate(template, templateMapping);
 
